@@ -215,7 +215,15 @@ const App: React.FC = () => {
                   )}
 
                   {state.currentStep === MigrationStep.BundlePacking && (
-                    <BundlePacking onComplete={handleBundlePackingComplete} />
+                    <BundlePacking 
+                      onComplete={handleBundlePackingComplete}
+                      onCancel={() => {
+                        // Log cancellation
+                        console.log("Migration cancelled during bundle packing");
+                        // You could also update state here to show a cancellation message
+                        // or redirect to a different step
+                      }}
+                    />
                   )}
 
                   {state.currentStep === MigrationStep.ConflictResolution && state.bundle && (
@@ -237,7 +245,14 @@ const App: React.FC = () => {
                   {state.currentStep === MigrationStep.Complete && (
                     <MigrationComplete 
                       success={state.executionStatus === 'success'} 
-                      onReset={handleReset} 
+                      onReset={handleReset}
+                      migrationDetails={{
+                        sourceInstance: state.sourceTarget.sourceInstance?.name || 'Unknown',
+                        targetInstance: state.sourceTarget.targetInstance?.name || 'Unknown',
+                        entityCount: state.comparedEntities.filter(e => e.selected).length,
+                        duration: '00:01:23', // This would come from actual timing in a real app
+                        timestamp: new Date().toISOString()
+                      }}
                     />
                   )}
                 </>

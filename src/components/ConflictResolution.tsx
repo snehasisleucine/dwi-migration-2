@@ -337,6 +337,24 @@ const ConflictResolution: React.FC<ConflictResolutionProps> = ({
             </table>
           </div>
 
+          <div className="bg-amber-50 border border-amber-100 rounded-lg p-4 mb-6">
+            <div className="flex items-center justify-between mb-2">
+              <div className="flex items-center">
+                <AlertCircle className="w-5 h-5 text-amber-500 mr-2" />
+                <span className="text-amber-800 font-medium">All-or-Nothing Transaction</span>
+              </div>
+              <span className="px-2.5 py-0.5 text-xs font-medium rounded-full bg-amber-100 text-amber-800">
+                Safety Feature
+              </span>
+            </div>
+            <p className="text-amber-700 text-sm">
+              Import will run as an all-or-nothing transaction. If any item fails, no changes are made.
+            </p>
+            <p className="text-amber-700 text-sm mt-1">
+              Selected entities: <span className="font-medium">{comparedEntities.filter(e => e.selected).length}</span> of {comparedEntities.length} total
+            </p>
+          </div>
+
           <div className="flex justify-between">
             <button
               onClick={onBack}

@@ -1,23 +1,31 @@
 import React, { useState, useEffect } from 'react';
 import { Bundle, MigrationStep } from '../types';
 import { generateMockBundle } from '../utils/mockData';
-import { Check, Package, Loader2 } from 'lucide-react';
+import { Check, Package, Loader2, AlertCircle, XCircle } from 'lucide-react';
 
 interface BundlePackingProps {
   onComplete: (bundle: Bundle) => void;
+  onCancel?: () => void;
 }
 
-const BundlePacking: React.FC<BundlePackingProps> = ({ onComplete }) => {
+const BundlePacking: React.FC<BundlePackingProps> = ({ onComplete, onCancel }) => {
   const [bundle, setBundle] = useState<Bundle | null>(null);
   const [loading, setLoading] = useState(true);
   const [progress, setProgress] = useState(0);
+  const [analysisComplete, setAnalysisComplete] = useState(false);
+  const [confirmationVisible, setConfirmationVisible] = useState(false);
+  const [cancelled, setCancelled] = useState(false);
 
   useEffect(() => {
+    if (cancelled) return;
+    
     // Simulate the bundle packing process
     const timer = setTimeout(() => {
       const generatedBundle = generateMockBundle();
       setBundle(generatedBundle);
       setLoading(false);
+      setAnalysisComplete(true);
+      setConfirmationVisible(true);
     }, 2000);
 
     // Simulate progress
@@ -32,11 +40,24 @@ const BundlePacking: React.FC<BundlePackingProps> = ({ onComplete }) => {
       clearTimeout(timer);
       clearInterval(interval);
     };
-  }, []);
+  }, [cancelled]);
 
-  const handleContinue = () => {
+  const handleConfirm = () => {
     if (bundle) {
       onComplete(bundle);
+    }
+  };
+
+  const handleCancel = () => {
+    setCancelled(true);
+    setConfirmationVisible(false);
+    
+    // Log cancellation
+    console.log("Migration cancelled during packing");
+    
+    // Call onCancel if provided
+    if (onCancel) {
+      onCancel();
     }
   };
 
@@ -59,7 +80,21 @@ const BundlePacking: React.FC<BundlePackingProps> = ({ onComplete }) => {
         We're collecting all dependent entities including object types, properties, relations, and more.
       </p>
 
-      {loading ? (
+      {cancelled ? (
+        <div className="bg-amber-50 border border-amber-100 rounded-lg p-8 flex flex-col items-center">
+          <AlertCircle className="w-12 h-12 text-amber-600 mb-4" />
+          <h3 className="text-lg font-medium text-gray-800 mb-2">Migration Cancelled</h3>
+          <p className="text-gray-500 mb-6 text-center">
+            The migration process was cancelled during bundle packing.
+          </p>
+          <button
+            onClick={() => window.location.reload()}
+            className="bg-amber-600 hover:bg-amber-700 text-white py-2 px-6 rounded-md font-medium transition-colors duration-300"
+          >
+            Start Over
+          </button>
+        </div>
+      ) : loading ? (
         <div className="bg-gray-50 border border-gray-100 rounded-lg p-8 flex flex-col items-center">
           <Loader2 className="w-12 h-12 text-blue-600 animate-spin mb-4" />
           <h3 className="text-lg font-medium text-gray-800 mb-2">Collecting Entities</h3>
@@ -128,18 +163,31 @@ const BundlePacking: React.FC<BundlePackingProps> = ({ onComplete }) => {
             )}
           </div>
 
-          <div className="flex justify-end">
-            <button
-              onClick={handleContinue}
-              className="bg-blue-600 hover:bg-blue-700 text-white py-2 px-6 rounded-md font-medium transition-colors duration-300 flex items-center"
-            >
-              Next
-              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="ml-2">
-                <path d="M5 12h14" />
-                <path d="m12 5 7 7-7 7" />
-              </svg>
-            </button>
-          </div>
+          {confirmationVisible && (
+            <div className="bg-blue-50 border border-blue-100 rounded-lg p-4 mb-6">
+              <h3 className="font-medium text-blue-800 mb-2">Confirm Migration</h3>
+              <p className="text-blue-700 text-sm mb-4">
+                Please confirm that you want to proceed with the migration of these entities. 
+                This action will analyze conflicts between source and target environments.
+              </p>
+              <div className="flex justify-end space-x-4">
+                <button
+                  onClick={handleCancel}
+                  className="bg-white border border-gray-300 text-gray-700 hover:bg-gray-50 py-2 px-4 rounded-md font-medium transition-colors duration-300 flex items-center"
+                >
+                  <XCircle className="w-4 h-4 mr-2" />
+                  Cancel
+                </button>
+                <button
+                  onClick={handleConfirm}
+                  className="bg-blue-600 hover:bg-blue-700 text-white py-2 px-4 rounded-md font-medium transition-colors duration-300 flex items-center"
+                >
+                  <Check className="w-4 h-4 mr-2" />
+                  Confirm
+                </button>
+              </div>
+            </div>
+          )}
         </>
       )}
     </div>

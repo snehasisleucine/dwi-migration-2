@@ -25,8 +25,14 @@ const TransactionExecution: React.FC<TransactionExecutionProps> = ({
     const executeTransaction = async () => {
       setStatus('running');
       setExecutionLog((prev) => [...prev, 'Starting transaction execution...']);
+      setExecutionLog((prev) => [...prev, 'Acquiring lock on target instance...']);
       
       try {
+        // Simulate instance locking
+        await new Promise(resolve => setTimeout(resolve, 800));
+        setExecutionLog((prev) => [...prev, 'Lock acquired. Target instance is now read-only for other users.']);
+        setExecutionLog((prev) => [...prev, 'Beginning single transaction commit...']);
+        
         // Simulate progress updates
         const progressInterval = setInterval(() => {
           setProgress((prev) => {
@@ -55,7 +61,19 @@ const TransactionExecution: React.FC<TransactionExecutionProps> = ({
         setProgress(100);
         
         if (result.success) {
-          setExecutionLog((prev) => [...prev, 'Transaction completed successfully.']);
+          setExecutionLog((prev) => [...prev, 'All entities processed successfully.']);
+          setExecutionLog((prev) => [...prev, 'Committing transaction...']);
+          
+          // Simulate commit delay
+          await new Promise(resolve => setTimeout(resolve, 500));
+          
+          setExecutionLog((prev) => [...prev, 'Transaction committed successfully.']);
+          setExecutionLog((prev) => [...prev, 'Releasing lock on target instance...']);
+          
+          // Simulate lock release
+          await new Promise(resolve => setTimeout(resolve, 300));
+          
+          setExecutionLog((prev) => [...prev, 'Lock released. Target instance is now writable.']);
           setStatus('success');
           onComplete(true);
         } else {
@@ -65,9 +83,27 @@ const TransactionExecution: React.FC<TransactionExecutionProps> = ({
         setExecutionLog((prev) => [
           ...prev, 
           `Error: ${error.error || error.message || 'Unknown error occurred.'}`,
+          'Initiating automatic rollback...',
           'Rolling back all changes...',
-          'Rollback complete. No changes were made.'
         ]);
+        
+        // Simulate rollback delay
+        await new Promise(resolve => setTimeout(resolve, 800));
+        
+        setExecutionLog((prev) => [
+          ...prev,
+          'Rollback complete. No changes were made to the target instance.',
+          'Releasing lock on target instance...',
+        ]);
+        
+        // Simulate lock release
+        await new Promise(resolve => setTimeout(resolve, 300));
+        
+        setExecutionLog((prev) => [
+          ...prev,
+          'Lock released. Target instance is now writable.'
+        ]);
+        
         setErrorMessage(error.error || error.message || 'Unknown error occurred.');
         setStatus('error');
         onComplete(false);

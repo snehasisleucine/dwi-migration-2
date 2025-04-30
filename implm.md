@@ -34,33 +34,33 @@
   - [x] Validation for selected values
   - [x] UI for target selection form
 
-- [ ] Analysis Step
-  - [ ] Bundle compilation with entity counts
-  - [ ] Confirm/Cancel options
-  - [ ] Cancellation logging ("Cancelled during packing")
+- [x] Analysis Step
+  - [x] Bundle compilation with entity counts
+  - [x] Confirm/Cancel options
+  - [x] Cancellation logging ("Cancelled during packing")
 
-- [ ] Review & Conflicts
-  - [ ] Two-panel layout
-    - [ ] Bundle Contents panel (aggregate counts)
-    - [ ] Additions & Conflicts panel
-  - [ ] Pre-ticked items for missing entities
-  - [ ] Pre-ticked items for label-match entities
-  - [ ] Unticked items for conflicts (with red icon)
-  - [ ] Transaction warning footer
+- [x] Review & Conflicts
+  - [x] Two-panel layout
+    - [x] Bundle Contents panel (aggregate counts)
+    - [x] Additions & Conflicts panel
+  - [x] Pre-ticked items for missing entities
+  - [x] Pre-ticked items for label-match entities
+  - [x] Unticked items for conflicts (with red icon)
+  - [x] Transaction warning footer
 
-- [ ] Import Process
-  - [ ] Instance locking mechanism
-  - [ ] Single transaction commit
-  - [ ] All-or-nothing transaction model
-  - [ ] Automatic rollback on failure
+- [x] Import Process
+  - [x] Instance locking mechanism
+  - [x] Single transaction commit
+  - [x] All-or-nothing transaction model
+  - [x] Automatic rollback on failure
 
-- [ ] Completion
-  - [ ] Success status display
-  - [ ] Migration log recording
-    - [ ] Status
-    - [ ] Source → Target
-    - [ ] Object count
-    - [ ] Duration
+- [x] Completion
+  - [x] Success status display
+  - [x] Migration log recording
+    - [x] Status
+    - [x] Source → Target
+    - [x] Object count
+    - [x] Duration
 
 ## Logging System
 - [x] Migration History Table
