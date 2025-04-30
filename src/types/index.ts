@@ -40,14 +40,50 @@ export interface ComparedEntity extends Entity {
 }
 
 export enum MigrationStep {
-  BundlePacking = 0,
-  ConflictResolution = 1,
-  Execution = 2,
-  Complete = 3,
+  SourceTargetSelection = 0,
+  BundlePacking = 1,
+  ConflictResolution = 2,
+  Execution = 3,
+  Complete = 4,
+}
+
+// Source and target selection types
+export interface Instance {
+  id: string;
+  name: string;
+}
+
+export interface UseCase {
+  id: string;
+  name: string;
+  instanceId: string;
+}
+
+export interface Facility {
+  id: string;
+  name: string;
+  useCaseId: string;
+}
+
+export interface Checklist {
+  id: string;
+  name: string;
+  facilityId: string;
+}
+
+export interface SourceTarget {
+  sourceInstance: Instance | null;
+  sourceUseCase: UseCase | null;
+  sourceFacility: Facility | null;
+  sourceChecklist: Checklist | null;
+  targetInstance: Instance | null;
+  targetUseCase: UseCase | null;
+  targetFacility: Facility | null;
 }
 
 export interface MigrationState {
   currentStep: MigrationStep;
+  sourceTarget: SourceTarget;
   bundle: Bundle | null;
   comparedEntities: ComparedEntity[];
   executionStatus: 'idle' | 'running' | 'success' | 'error';

@@ -7,6 +7,7 @@ interface StepIndicatorProps {
 }
 
 const steps = [
+  { id: MigrationStep.SourceTargetSelection, label: 'Source & Target' },
   { id: MigrationStep.BundlePacking, label: 'Bundle Packing' },
   { id: MigrationStep.ConflictResolution, label: 'Conflict Resolution' },
   { id: MigrationStep.Execution, label: 'Execution' },
