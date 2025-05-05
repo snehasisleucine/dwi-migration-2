@@ -197,14 +197,17 @@ const App: React.FC = () => {
           {/* Step indicator below top bar */}
           {activeTab === 'workflow' && (
             <div className="bg-white border-b border-gray-200 py-4">
-              <div className="max-w-7xl mx-auto px-4 sm:px-6">
+              {/* Original: <div className="max-w-7xl mx-auto px-4 sm:px-6"> */}
+              <div className="w-full px-4">
                 <StepIndicator currentStep={state.currentStep} />
               </div>
             </div>
           )}
           
-          <div className="py-6 px-6">
-            <div className="max-w-7xl mx-auto">
+          {/* Original: <div className="py-6 px-6"> */}
+          <div className="py-4 px-4">
+            {/* Original: <div className="max-w-7xl mx-auto"> */}
+            <div className="w-full">
               {activeTab === 'workflow' ? (
                 <>
                   {state.currentStep === MigrationStep.SourceTargetSelection && (
@@ -275,7 +278,8 @@ const App: React.FC = () => {
       </div>
 
       <footer className="bg-white border-t border-gray-200 py-3">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 text-center text-sm text-gray-500">
+        {/* Original: <div className="max-w-7xl mx-auto px-4 sm:px-6 text-center text-sm text-gray-500"> */}
+        <div className="w-full px-4 text-center text-sm text-gray-500">
           <p>
             Data Migration Tool v1.0 - All changes are executed in a single transaction to ensure data integrity.
           </p>

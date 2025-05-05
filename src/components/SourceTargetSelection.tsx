@@ -319,7 +319,8 @@ const SourceTargetSelection: React.FC<SourceTargetSelectionProps> = ({
   };
 
   return (
-    <div className="bg-white rounded-lg shadow-md p-6 max-w-3xl mx-auto">
+    // Original: <div className="bg-white rounded-lg shadow-md p-6 max-w-3xl mx-auto">
+    <div className="bg-white rounded-lg shadow-md p-6 w-full">
       <h2 className="text-2xl font-semibold mb-6 text-gray-800">Source & Target Selection</h2>
       <p className="text-gray-600 mb-6">
         Select the source and target instances for the migration.

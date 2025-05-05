@@ -33,7 +33,7 @@ const LogsTable: React.FC<LogsTableProps> = ({ logs, onLogSelect }) => {
   };
 
   return (
-    <div className="bg-white shadow-sm rounded-lg overflow-hidden">
+    <div className="bg-white shadow-sm rounded-lg overflow-hidden w-full">
       <div className="px-4 py-5 sm:px-6">
         <h3 className="text-lg font-medium leading-6 text-gray-900">Migration History</h3>
         <p className="mt-1 max-w-2xl text-sm text-gray-500">

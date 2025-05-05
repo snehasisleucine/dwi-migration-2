@@ -25,7 +25,7 @@ const MigrationComplete: React.FC<MigrationCompleteProps> = ({
   }
 }) => {
   return (
-    <div className="bg-white rounded-lg shadow-md p-6 max-w-3xl mx-auto">
+    <div className="bg-white rounded-lg shadow-md p-6 w-full">
       {success ? (
         <div className="text-center">
           <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-green-100 mb-6">

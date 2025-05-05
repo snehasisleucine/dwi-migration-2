@@ -74,7 +74,7 @@ const BundlePacking: React.FC<BundlePackingProps> = ({ onComplete, onCancel }) =
   );
 
   return (
-    <div className="bg-white rounded-lg shadow-md p-6 max-w-3xl mx-auto">
+    <div className="bg-white rounded-lg shadow-md p-6 w-full">
       <h2 className="text-2xl font-semibold mb-6 text-gray-800">Bundle Packing</h2>
       <p className="text-gray-600 mb-6">
         We're collecting all dependent entities including object types, properties, relations, and more.

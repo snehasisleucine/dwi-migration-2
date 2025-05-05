@@ -33,7 +33,7 @@ const LogDetail: React.FC<LogDetailProps> = ({ log, auditLogs, onBack }) => {
   };
 
   return (
-    <div className="bg-white shadow-sm rounded-lg overflow-hidden">
+    <div className="bg-white shadow-sm rounded-lg overflow-hidden w-full">
       <div className="px-4 py-5 sm:px-6 flex justify-between items-center">
         <div className="flex items-center">
           <button 
