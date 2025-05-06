@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { ComparedEntity, ComparisonResult, Bundle, EntityType } from '../types';
 import { generateComparisonResults } from '../utils/mockData';
-import { AlertCircle, CheckCircle, Loader2, Info, XCircle } from 'lucide-react';
+import { AlertCircle, CheckCircle, Loader2, Info, XCircle, GitMerge } from 'lucide-react';
 
 interface ConflictResolutionProps {
   bundle: Bundle;
@@ -119,14 +119,17 @@ const ConflictResolution: React.FC<ConflictResolutionProps> = ({
   };
 
   return (
-    <div className="bg-white rounded-lg shadow-md p-6 w-full">
-      <h2 className="text-2xl font-semibold mb-6 text-gray-800">Additions & Conflicts</h2>
+    <div className="bg-white rounded-lg shadow-md border border-gray-200 p-6 w-full">
+      <h2 className="text-2xl font-semibold mb-6 text-gray-800 flex items-center">
+        <GitMerge className="mr-2 h-6 w-6 text-blue-600" />
+        Additions & Conflicts
+      </h2>
       <p className="text-gray-600 mb-6">
         Review the differences between the source and target environments. Select the entities you wish to import.
       </p>
 
       {loading ? (
-        <div className="bg-gray-50 border border-gray-100 rounded-lg p-8 flex flex-col items-center">
+        <div className="bg-gray-50 border border-gray-200 rounded-lg p-8 flex flex-col items-center shadow-sm">
           <Loader2 className="w-12 h-12 text-blue-600 animate-spin mb-4" />
           <h3 className="text-lg font-medium text-gray-800 mb-2">Comparing Entities</h3>
           <p className="text-gray-500 text-center">
@@ -136,7 +139,7 @@ const ConflictResolution: React.FC<ConflictResolutionProps> = ({
       ) : (
         <>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
-            <div className="bg-blue-50 border border-blue-100 rounded-lg p-4 flex items-start">
+            <div className="bg-blue-50 border-l-4 border-blue-500 rounded-lg p-4 flex items-start shadow-sm">
               <Info className="w-5 h-5 text-blue-600 mr-3 mt-0.5" />
               <div>
                 <p className="text-blue-800 font-medium">Missing ({comparisonCounts[ComparisonResult.Missing]})</p>
@@ -158,7 +161,7 @@ const ConflictResolution: React.FC<ConflictResolutionProps> = ({
               </div>
             </div>
             
-            <div className="bg-green-50 border border-green-100 rounded-lg p-4 flex items-start">
+            <div className="bg-green-50 border-l-4 border-green-500 rounded-lg p-4 flex items-start shadow-sm">
               <CheckCircle className="w-5 h-5 text-green-600 mr-3 mt-0.5" />
               <div>
                 <p className="text-green-800 font-medium">Label Match ({comparisonCounts[ComparisonResult.LabelMatch]})</p>
@@ -180,7 +183,7 @@ const ConflictResolution: React.FC<ConflictResolutionProps> = ({
               </div>
             </div>
             
-            <div className="bg-red-50 border border-red-100 rounded-lg p-4 flex items-start">
+            <div className="bg-red-50 border-l-4 border-red-500 rounded-lg p-4 flex items-start shadow-sm">
               <AlertCircle className="w-5 h-5 text-red-600 mr-3 mt-0.5" />
               <div>
                 <p className="text-red-800 font-medium">Conflicts ({comparisonCounts[ComparisonResult.Conflict]})</p>
@@ -202,7 +205,7 @@ const ConflictResolution: React.FC<ConflictResolutionProps> = ({
               </div>
             </div>
             
-            <div className="bg-gray-50 border border-gray-200 rounded-lg p-4 flex items-start">
+            <div className="bg-gray-50 border-l-4 border-gray-400 rounded-lg p-4 flex items-start shadow-sm">
               <XCircle className="w-5 h-5 text-gray-500 mr-3 mt-0.5" />
               <div>
                 <p className="text-gray-800 font-medium">Matches ({comparisonCounts[ComparisonResult.Match]})</p>
@@ -211,7 +214,7 @@ const ConflictResolution: React.FC<ConflictResolutionProps> = ({
             </div>
           </div>
 
-          <div className="mb-6 flex flex-col sm:flex-row justify-between gap-4">
+          <div className="mb-6 flex flex-col sm:flex-row justify-between gap-4 bg-gray-50 p-3 rounded-lg border border-gray-200">
             <div className="inline-flex rounded-md shadow-sm">
               <button
                 onClick={() => setFilter('all')}
@@ -269,7 +272,7 @@ const ConflictResolution: React.FC<ConflictResolutionProps> = ({
             </select>
           </div>
 
-          <div className="bg-gray-50 border border-gray-200 rounded-lg overflow-hidden mb-6">
+          <div className="bg-white border border-gray-200 rounded-lg overflow-hidden mb-6 shadow-sm">
             <table className="min-w-full divide-y divide-gray-200">
               <thead className="bg-gray-100">
                 <tr>
@@ -337,7 +340,7 @@ const ConflictResolution: React.FC<ConflictResolutionProps> = ({
             </table>
           </div>
 
-          <div className="bg-amber-50 border border-amber-100 rounded-lg p-4 mb-6">
+          <div className="bg-amber-50 border-l-4 border-amber-500 rounded-lg p-4 mb-6 shadow-sm">
             <div className="flex items-center justify-between mb-2">
               <div className="flex items-center">
                 <AlertCircle className="w-5 h-5 text-amber-500 mr-2" />
@@ -355,7 +358,7 @@ const ConflictResolution: React.FC<ConflictResolutionProps> = ({
             </p>
           </div>
 
-          <div className="flex justify-between">
+          <div className="flex justify-between bg-gray-50 p-4 rounded-lg border border-gray-200">
             <button
               onClick={onBack}
               className="bg-gray-100 hover:bg-gray-200 text-gray-700 py-2 px-5 rounded-md font-medium transition-colors duration-300 flex items-center"

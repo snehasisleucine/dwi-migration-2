@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { ComparedEntity } from '../types';
 import { executeMockMigration } from '../utils/mockData';
-import { CheckCircle, XCircle, Loader2, AlertTriangle } from 'lucide-react';
+import { CheckCircle, XCircle, Loader2, AlertTriangle, Play } from 'lucide-react';
 
 interface TransactionExecutionProps {
   comparedEntities: ComparedEntity[];
@@ -120,10 +120,13 @@ const TransactionExecution: React.FC<TransactionExecutionProps> = ({
   }, [comparedEntities, onComplete]);
 
   return (
-    <div className="bg-white rounded-lg shadow-md p-6 w-full">
-      <h2 className="text-2xl font-semibold mb-6 text-gray-800">Transaction Execution</h2>
+    <div className="bg-white rounded-lg shadow-md border border-gray-200 p-6 w-full">
+      <h2 className="text-2xl font-semibold mb-6 text-gray-800 flex items-center">
+        <Play className="mr-2 h-6 w-6 text-blue-600" />
+        Transaction Execution
+      </h2>
       
-      <div className="mb-6 bg-gray-50 border border-gray-200 rounded-lg p-4">
+      <div className="mb-6 bg-gray-50 border-l-4 border-amber-500 rounded-lg p-4 shadow-sm">
         <div className="flex items-center justify-between mb-4">
           <div className="flex items-center">
             <AlertTriangle className="w-5 h-5 text-amber-500 mr-2" />
@@ -158,10 +161,10 @@ const TransactionExecution: React.FC<TransactionExecutionProps> = ({
       {/* Status indicator */}
       {status !== 'idle' && (
         <div 
-          className={`mb-6 p-4 rounded-lg border ${
-            status === 'running' ? 'bg-blue-50 border-blue-100' : 
-            status === 'success' ? 'bg-green-50 border-green-100' : 
-            'bg-red-50 border-red-100'
+          className={`mb-6 p-4 rounded-lg border-l-4 shadow-sm ${
+            status === 'running' ? 'bg-blue-50 border-blue-500' : 
+            status === 'success' ? 'bg-green-50 border-green-500' : 
+            'bg-red-50 border-red-500'
           }`}
         >
           <div className="flex items-center">
@@ -190,8 +193,13 @@ const TransactionExecution: React.FC<TransactionExecutionProps> = ({
 
       {/* Execution log */}
       <div className="mb-6">
-        <h3 className="text-sm font-medium text-gray-700 mb-2">Execution Log</h3>
-        <div className="bg-gray-900 text-gray-200 rounded-lg p-4 font-mono text-sm h-60 overflow-y-auto">
+        <h3 className="text-sm font-medium text-gray-700 mb-2 bg-gray-50 p-2 rounded-md border border-gray-200 flex items-center">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="mr-2">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+          </svg>
+          Execution Log
+        </h3>
+        <div className="bg-gray-900 text-gray-200 rounded-lg p-4 font-mono text-sm h-60 overflow-y-auto shadow-inner">
           {executionLog.map((log, index) => (
             <div key={index} className="mb-1">
               <span className="text-gray-500">[{new Date().toISOString().substring(11, 19)}]</span> {log}
@@ -205,7 +213,7 @@ const TransactionExecution: React.FC<TransactionExecutionProps> = ({
         </div>
       </div>
 
-      <div className="flex justify-between">
+      <div className="flex justify-between bg-gray-50 p-4 rounded-lg border border-gray-200">
         <button
           onClick={onBack}
           disabled={status === 'running'}

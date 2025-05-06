@@ -319,16 +319,18 @@ const SourceTargetSelection: React.FC<SourceTargetSelectionProps> = ({
   };
 
   return (
-    // Original: <div className="bg-white rounded-lg shadow-md p-6 max-w-3xl mx-auto">
-    <div className="bg-white rounded-lg shadow-md p-6 w-full">
-      <h2 className="text-2xl font-semibold mb-6 text-gray-800">Source & Target Selection</h2>
+    <div className="bg-white rounded-lg shadow-md border border-gray-200 p-6 w-full">
+      <h2 className="text-2xl font-semibold mb-6 text-gray-800 flex items-center">
+        <Database className="mr-2 h-6 w-6 text-blue-600" />
+        Source & Target Selection
+      </h2>
       <p className="text-gray-600 mb-6">
         Select the source and target instances for the migration.
       </p>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         {/* Source Selection */}
-        <div className="bg-blue-50 p-4 rounded-lg">
+        <div className="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-500 shadow-sm">
           <h3 className="text-lg font-medium text-blue-800 mb-4">Source</h3>
           
           <Dropdown
@@ -377,7 +379,7 @@ const SourceTargetSelection: React.FC<SourceTargetSelectionProps> = ({
         </div>
 
         {/* Target Selection */}
-        <div className="bg-green-50 p-4 rounded-lg">
+        <div className="bg-green-50 p-4 rounded-lg border-l-4 border-green-500 shadow-sm">
           <h3 className="text-lg font-medium text-green-800 mb-4">Target</h3>
           
           <Dropdown
@@ -415,7 +417,7 @@ const SourceTargetSelection: React.FC<SourceTargetSelectionProps> = ({
         </div>
       </div>
 
-      <div className="mt-8 flex justify-end">
+      <div className="mt-8 flex justify-end bg-gray-50 p-4 rounded-lg border border-gray-200">
         <button
           onClick={handleSubmit}
           disabled={!isFormValid}

@@ -74,14 +74,17 @@ const BundlePacking: React.FC<BundlePackingProps> = ({ onComplete, onCancel }) =
   );
 
   return (
-    <div className="bg-white rounded-lg shadow-md p-6 w-full">
-      <h2 className="text-2xl font-semibold mb-6 text-gray-800">Bundle Packing</h2>
+    <div className="bg-white rounded-lg shadow-md border border-gray-200 p-6 w-full">
+      <h2 className="text-2xl font-semibold mb-6 text-gray-800 flex items-center">
+        <Package className="mr-2 h-6 w-6 text-blue-600" />
+        Bundle Packing
+      </h2>
       <p className="text-gray-600 mb-6">
         We're collecting all dependent entities including object types, properties, relations, and more.
       </p>
 
       {cancelled ? (
-        <div className="bg-amber-50 border border-amber-100 rounded-lg p-8 flex flex-col items-center">
+        <div className="bg-amber-50 border-l-4 border-amber-500 rounded-lg p-8 flex flex-col items-center shadow-sm">
           <AlertCircle className="w-12 h-12 text-amber-600 mb-4" />
           <h3 className="text-lg font-medium text-gray-800 mb-2">Migration Cancelled</h3>
           <p className="text-gray-500 mb-6 text-center">
@@ -95,7 +98,7 @@ const BundlePacking: React.FC<BundlePackingProps> = ({ onComplete, onCancel }) =
           </button>
         </div>
       ) : loading ? (
-        <div className="bg-gray-50 border border-gray-100 rounded-lg p-8 flex flex-col items-center">
+        <div className="bg-gray-50 border border-gray-200 rounded-lg p-8 flex flex-col items-center shadow-sm">
           <Loader2 className="w-12 h-12 text-blue-600 animate-spin mb-4" />
           <h3 className="text-lg font-medium text-gray-800 mb-2">Collecting Entities</h3>
           <p className="text-gray-500 mb-4 text-center">
@@ -111,7 +114,7 @@ const BundlePacking: React.FC<BundlePackingProps> = ({ onComplete, onCancel }) =
         </div>
       ) : (
         <>
-          <div className="bg-blue-50 border border-blue-100 rounded-lg p-4 mb-6 flex items-start">
+          <div className="bg-blue-50 border-l-4 border-blue-500 rounded-lg p-4 mb-6 flex items-start shadow-sm">
             <div className="p-1 bg-blue-100 rounded-full mr-3 mt-1">
               <Check className="w-4 h-4 text-blue-700" />
             </div>
@@ -121,12 +124,12 @@ const BundlePacking: React.FC<BundlePackingProps> = ({ onComplete, onCancel }) =
             </div>
           </div>
 
-          <h3 className="font-semibold text-gray-700 mb-3 flex items-center">
+          <h3 className="font-semibold text-gray-700 mb-3 flex items-center bg-gray-50 p-2 rounded-md border border-gray-200">
             <Package className="w-5 h-5 mr-2 text-gray-600" />
             Bundle Contents
           </h3>
 
-          <div className="grid grid-cols-2 sm:grid-cols-3 gap-4 mb-8">
+          <div className="grid grid-cols-2 sm:grid-cols-3 gap-4 mb-8 p-2 bg-gray-50 rounded-lg border border-gray-100">
             {bundle && (
               <>
                 <EntityCountCard 
@@ -164,13 +167,13 @@ const BundlePacking: React.FC<BundlePackingProps> = ({ onComplete, onCancel }) =
           </div>
 
           {confirmationVisible && (
-            <div className="bg-blue-50 border border-blue-100 rounded-lg p-4 mb-6">
+            <div className="bg-blue-50 border-l-4 border-blue-500 rounded-lg p-4 mb-6 shadow-sm">
               <h3 className="font-medium text-blue-800 mb-2">Confirm Migration</h3>
               <p className="text-blue-700 text-sm mb-4">
                 Please confirm that you want to proceed with the migration of these entities. 
                 This action will analyze conflicts between source and target environments.
               </p>
-              <div className="flex justify-end space-x-4">
+              <div className="flex justify-end space-x-4 mt-2">
                 <button
                   onClick={handleCancel}
                   className="bg-white border border-gray-300 text-gray-700 hover:bg-gray-50 py-2 px-4 rounded-md font-medium transition-colors duration-300 flex items-center"

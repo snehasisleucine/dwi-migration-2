@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
 import StepIndicator from './components/StepIndicator';
 import SourceTargetSelection from './components/SourceTargetSelection';
 import BundlePacking from './components/BundlePacking';
@@ -104,6 +104,7 @@ const App: React.FC = () => {
   // Navigation state
   const [activeTab, setActiveTab] = useState<'workflow' | 'logs'>('workflow');
   const [selectedLogId, setSelectedLogId] = useState<string | null>(null);
+  const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
 
   const handleSourceTargetComplete = useCallback((sourceTarget: SourceTarget) => {
     setState((prev) => ({
@@ -191,9 +192,13 @@ const App: React.FC = () => {
       <TopBar userName="Snehasis Majumdar" />
 
       <div className="flex-1 flex">
-        <Sidebar activeTab={activeTab} onTabChange={setActiveTab} />
+        <Sidebar 
+          activeTab={activeTab} 
+          onTabChange={setActiveTab} 
+          onCollapsedChange={setSidebarCollapsed}
+        />
         
-        <main className="flex-1 overflow-auto">
+        <main className={`flex-1 overflow-auto transition-all duration-300 ${sidebarCollapsed ? 'pl-0' : 'pl-0'}`}>
           {/* Step indicator below top bar */}
           {activeTab === 'workflow' && (
             <div className="bg-white border-b border-gray-200 py-4">

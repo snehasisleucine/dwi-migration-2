@@ -13,8 +13,8 @@ const TopBar: React.FC<TopBarProps> = ({ userName }) => {
   };
 
   return (
-    <header className="bg-white shadow-sm">
-      <div className="max-w-7xl mx-auto px-4 py-3 sm:px-6 flex items-center justify-between">
+    <header className="bg-gradient-to-r from-white to-blue-50 shadow-md border-b border-blue-200 sticky top-0 z-10">
+      <div className="w-full px-4 py-3 flex items-center justify-between">
         <div className="flex items-center">
           <img 
             src="https://media.licdn.com/dms/image/v2/D4E0BAQGgPkP6zIxRwQ/company-logo_200_200/B4EZY_NeITHEAQ-/0/1744817218635/leucine_logo?e=2147483647&v=beta&t=k-yQ6a5P8lCwrxtd6DRYsm-4wlQyQqoh47CjVAXXVnw" 
